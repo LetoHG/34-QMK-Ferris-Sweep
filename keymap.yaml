@@ -1,0 +1,88 @@
+layout: {qmk_keyboard: ferris/sweep, qmk_layout: LAYOUT_split_3x5_2}
+layers:
+  ALPHA:
+  - [Y, C, L, M, K, Z, F, U, {t: ',', h: '-'}, $$mdi:backspace-outline$$]
+  - - I
+    - S
+    - {t: R, h: Alt}
+    - {t: T, h: $$mdi:microsoft-windows$$}
+    - G
+    - P
+    - {t: N, h: $$mdi:microsoft-windows$$}
+    - {t: E, h: RAlt}
+    - A
+    - O
+  - [Q, V, W, D, J, B, H, {t: /, h: '_'}, {t: '.', h: '!'}, X]
+  - - {t: "$$mdi:upload$$", h: SPECIAL}
+    - {t: Ctrl, h: sticky}
+    - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
+    - $$mdi:keyboard-space$$
+  SPECIAL:
+  - [$$mdi:keyboard-esc$$, _, '[', ']', ^, {t: '!', h: '?'}, '<', '>', '=', $$mdi:backspace-outline$$]
+  - [$$mdi:keyboard-tab$$, {t: /, h: \}, '{', '}', '*', '-', '(', ')', ';', $$mdi:keyboard-return$$]
+  - [{t: '#', h: '@'}, {t: '$', h: '%'}, '|', '~', '`', +, '&', {t: '"', h: "'"}, ':', {t: "$$mdi:upload$$", h: NAVIGATION}]
+  - - {t: "$$mdi:upload$$", h: NUMBERS}
+    - Ctrl+Alt
+    - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
+    - {t: "$$mdi:upload$$", h: ALPHA}
+  NUMBERS:
+  - - $$mdi:keyboard-esc$$
+    - {t: $$mdi:play-pause$$}
+    - {t: $$mdi:skip-backward$$}
+    - {t: $$mdi:skip-forward$$}
+    - /
+    - '-'
+    - '7'
+    - '8'
+    - '9'
+    - $$mdi:backspace-outline$$
+  - [$$mdi:keyboard-tab$$, Alt, $$mdi:apple-keyboard-shift$$, Ctrl, '*', +, {t: '4', h: D}, {t: '5', h: E}, {t: '6', h: F}, $$mdi:keyboard-return$$]
+  - [$$mdi:weather-sunset-down$$, $$mdi:weather-sunset-up$$, $$mdi:volume-minus$$, $$mdi:volume-plus$$, '.', {t: '0', h: X}, {t: '1', h: A}, {t: '2', h: B}, {t: '3', h: C}, {t: "$$mdi:upload$$", h: FUNCTION}]
+  - - {t: "$$mdi:upload$$", h: NUMBERS}
+    - $$mdi:microsoft-windows$$
+    - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
+    - {t: "$$mdi:upload$$", h: ALPHA}
+  NAVIGATION:
+  - - $$mdi:keyboard-esc$$
+    - ''
+    - $$mdi:arrow-left-bold$$
+    - $$mdi:arrow-right-bold$$
+    - ''
+    - PgUp
+    - Home
+    - End
+    - PgDn
+    - $$mdi:backspace-outline$$
+  - [$$mdi:keyboard-tab$$, Alt, $$mdi:apple-keyboard-shift$$, Ctrl, {t: $$mdi:content-save-outline$$, h: Ctrl+S}, $$mdi:arrow-left-thin$$, $$mdi:arrow-down-thin$$, $$mdi:arrow-up-thin$$, $$mdi:arrow-right-thin$$, $$mdi:keyboard-return$$]
+  - - {t: $$mdi:undo$$, h: Ctrl+Z}
+    - {t: $$mdi:content-cut$$, h: Ctrl+X}
+    - {t: $$mdi:content-copy$$, h: Ctrl+C}
+    - {t: $$mdi:content-paste$$, h: Ctrl+V}
+    - {t: $$mdi:redo$$, h: Ctrl+Y}
+    - ''
+    - {t: "$$mdi:upload$$", h: MOUSE}
+    - ''
+    - ''
+    - Del
+  - - {t: "$$mdi:upload$$", h: SPECIAL}
+    - $$mdi:microsoft-windows$$
+    - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
+    - {t: "$$mdi:upload$$", h: ALPHA}
+  FUNCTION:
+  - [$$mdi:keyboard-esc$$, '', '', '', '', '', $$mdi:keyboard-f1$$, $$mdi:keyboard-f2$$, $$mdi:keyboard-f3$$, $$mdi:keyboard-f4$$]
+  - ['', Alt, $$mdi:apple-keyboard-shift$$, Ctrl, '', '', $$mdi:keyboard-f5$$, $$mdi:keyboard-f6$$, $$mdi:keyboard-f7$$, $$mdi:keyboard-f8$$]
+  - ['', '', '', '', '', '', $$mdi:keyboard-f9$$, $$mdi:keyboard-f10$$, $$mdi:keyboard-f11$$, $$mdi:keyboard-f12$$]
+  - - {t: "$$mdi:upload$$", h: SPECIAL}
+    - Alt
+    - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
+    - {t: "$$mdi:upload$$", h: ALPHA}
+  MOUSE:
+  - [$$mdi:keyboard-esc$$, '', {t: $$mdi:arrow-up-thin$$, h: Mouse}, '', '', $$mdi:mouse-move-up$$, Ctrl, $$mdi:apple-keyboard-shift$$, Alt, '']
+  - ['', {t: $$mdi:arrow-left-thin$$, h: Mouse}, {t: $$mdi:arrow-down-thin$$, h: Mouse}, {t: $$mdi:arrow-right-thin$$, h: Mouse}, '', $$mdi:mouse-move-down$$, $$mdi:mouse-left-click-outline$$, $$mdi:mouse-right-click-outline$$, '', '']
+  - ['', $$mdi:mouse-scroll-wheel$$, {t: $$mdi:arrow-left-thin$$, h: Scroll}, {t: $$mdi:arrow-right-thin$$, h: Scroll}, '', '', {t: Speed 0, h: Mouse}, {t: Speed 1, h: Mouse}, {t: Speed 2, h: Mouse}, '']
+  - - {t: "$$mdi:upload$$", h: SPECIAL}
+    - Alt
+    - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
+    - {t: "$$mdi:upload$$", h: ALPHA}
+draw_config:
+  glyph_tap_size: 18
