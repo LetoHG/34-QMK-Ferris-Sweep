@@ -1,26 +1,26 @@
 layout: {qmk_keyboard: ferris/sweep, qmk_layout: LAYOUT_split_3x5_2}
 layers:
   ALPHA:
-  - [Y, C, L, M, K, Z, F, U, {t: ',', h: '-'}, $$mdi:backspace-outline$$]
-  - - I
-    - S
-    - {t: R, h: Alt}
-    - {t: T, h: $$mdi:microsoft-windows$$}
+  - [B, L, D, W, Z, $$mdi:backspace-outline$$, F, O, U, J]
+  - - N
+    - R
+    - {t: T, h: Alt}
+    - {t: S, h: $$mdi:microsoft-windows$$}
     - G
-    - P
-    - {t: N, h: $$mdi:microsoft-windows$$}
-    - {t: E, h: RAlt}
-    - A
-    - O
-  - [Q, V, W, D, J, B, H, {t: /, h: '_'}, {t: '.', h: '!'}, X]
+    - Y
+    - {t: H, h: $$mdi:microsoft-windows$$}
+    - {t: A, h: RAlt}
+    - E
+    - I
+  - [Q, X, M, C, V, K, P, {t: ',', h: '-'}, {t: '.', h: '!'}, {t: /, h: '_'}]
   - - {t: "$$mdi:upload$$", h: SPECIAL}
     - {t: Ctrl, h: sticky}
     - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
     - $$mdi:keyboard-space$$
   SPECIAL:
-  - [$$mdi:keyboard-esc$$, _, '[', ']', ^, {t: '!', h: '?'}, '<', '>', '=', $$mdi:backspace-outline$$]
+  - [$$mdi:keyboard-esc$$, _, '[', ']', ^, +, '<', '>', '=', $$mdi:backspace-outline$$]
   - [$$mdi:keyboard-tab$$, {t: /, h: \}, '{', '}', '*', '-', '(', ')', ';', $$mdi:keyboard-return$$]
-  - [{t: '#', h: '@'}, {t: '$', h: '%'}, '|', '~', '`', +, '&', {t: '"', h: "'"}, ':', {t: "$$mdi:upload$$", h: NAVIGATION}]
+  - [{t: '#', h: '@'}, {t: '$', h: '%'}, '|', '~', '`', {t: '!', h: '?'}, '&', {t: '"', h: "'"}, ':', {t: "$$mdi:upload$$", h: NAVIGATION}]
   - - {t: "$$mdi:upload$$", h: NUMBERS}
     - Ctrl+Alt
     - {t: $$mdi:apple-keyboard-shift$$, h: sticky}
@@ -31,12 +31,12 @@ layers:
     - {t: $$mdi:skip-backward$$}
     - {t: $$mdi:skip-forward$$}
     - /
-    - '-'
+    - '+'
     - '7'
     - '8'
     - '9'
     - $$mdi:backspace-outline$$
-  - [$$mdi:keyboard-tab$$, Alt, $$mdi:apple-keyboard-shift$$, Ctrl, '*', +, {t: '4', h: D}, {t: '5', h: E}, {t: '6', h: F}, $$mdi:keyboard-return$$]
+  - [$$mdi:keyboard-tab$$, Alt, $$mdi:apple-keyboard-shift$$, Ctrl, '*', '-', {t: '4', h: D}, {t: '5', h: E}, {t: '6', h: F}, $$mdi:keyboard-return$$]
   - [$$mdi:weather-sunset-down$$, $$mdi:weather-sunset-up$$, $$mdi:volume-minus$$, $$mdi:volume-plus$$, '.', {t: '0', h: X}, {t: '1', h: A}, {t: '2', h: B}, {t: '3', h: C}, {t: "$$mdi:upload$$", h: FUNCTION}]
   - - {t: "$$mdi:upload$$", h: NUMBERS}
     - $$mdi:microsoft-windows$$

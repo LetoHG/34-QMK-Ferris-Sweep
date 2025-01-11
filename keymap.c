@@ -104,7 +104,8 @@ enum tap_dance_codes {
   HEX_NUMPAD_4_D,
   HEX_NUMPAD_5_E,
   HEX_NUMPAD_6_F,
-  HEX_NUMPAD_0_X
+  HEX_NUMPAD_0_X,
+  DEC_DOT_COMMA
 };
 
 DEFINE_TAP_DANCE_SIMPLE(COMMA_MINUS, KC_COMMA, KC_MINUS)
@@ -126,6 +127,7 @@ DEFINE_TAP_DANCE_SIMPLE(HEX_NUMPAD_4_D, KC_4, KC_D)
 DEFINE_TAP_DANCE_SIMPLE(HEX_NUMPAD_5_E, KC_5, KC_E)
 DEFINE_TAP_DANCE_SIMPLE(HEX_NUMPAD_6_F, KC_6, KC_F)
 DEFINE_TAP_DANCE_SIMPLE(HEX_NUMPAD_0_X, KC_0, KC_X)
+DEFINE_TAP_DANCE_SIMPLE(DEC_DOT_COMMA, KC_DOT, KC_COMMA)
 
 qk_tap_dance_action_t tap_dance_actions[] = {
         [DOT_EXLM] = ADD_ACTION_TAP_DANCE(DOT_EXLM),
@@ -145,7 +147,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
         [HEX_NUMPAD_4_D] = ADD_ACTION_TAP_DANCE(HEX_NUMPAD_4_D),
         [HEX_NUMPAD_5_E] = ADD_ACTION_TAP_DANCE(HEX_NUMPAD_5_E),
         [HEX_NUMPAD_6_F] = ADD_ACTION_TAP_DANCE(HEX_NUMPAD_6_F),
-        [HEX_NUMPAD_0_X] = ADD_ACTION_TAP_DANCE(HEX_NUMPAD_0_X)
+        [HEX_NUMPAD_0_X] = ADD_ACTION_TAP_DANCE(HEX_NUMPAD_0_X),
+        [DEC_DOT_COMMA] = ADD_ACTION_TAP_DANCE(DEC_DOT_COMMA)
 };
 
 #define DE_ADIA     UC(0x00E4)
@@ -177,11 +180,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SPECIAL] = LAYOUT(
   //---------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
-    KC_ESCAPE,      KC_UNDS,          KC_LBRC,      KC_RBRC,               KC_CIRC,                  TD(EXLM_QUES),    KC_LABK,        KC_RABK,           KC_EQUAL,       KC_BSPC,
+    KC_ESCAPE,      KC_UNDS,          KC_LBRC,      KC_RBRC,               KC_CIRC,                  KC_PLUS,          KC_LABK,        KC_RABK,           KC_EQUAL,       KC_BSPC,
   //---------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
     KC_TAB,         TD(SL_BKSL),      KC_LCBR,      KC_RCBR,               KC_ASTR,                  KC_MINUS,         KC_LPRN,        KC_RPRN,           KC_SCOLON,      KC_ENTER,
   //---------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
-    TD(HASH_AT),    TD(DLR_PERC),     KC_PIPE,      KC_TILD,               KC_GRV,                   KC_PLUS,          KC_AMPR,        TD(DQUOTE_QUOTE),  KC_COLON,       TO(_NAVIGATION),
+    TD(HASH_AT),    TD(DLR_PERC),     KC_PIPE,      KC_TILD,               KC_GRV,                   TD(EXLM_QUES),    KC_AMPR,        TD(DQUOTE_QUOTE),  KC_COLON,       TO(_NAVIGATION),
   //---------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
                                                     TO(_NUMBERS),          LALT(KC_LCTL),            OSM(MOD_LSFT),    TO(_ALPHA)
   //---------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
@@ -189,11 +192,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMBERS] = LAYOUT(
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
-    KC_ESCAPE,              KC_MEDIA_PLAY_PAUSE,    KC_MEDIA_PREV_TRACK,    KC_MEDIA_NEXT_TRACK,    KC_SLASH,                 KC_MINS,            KC_7,               KC_8,               KC_9,                 KC_BSPC,
+    KC_ESCAPE,              KC_MEDIA_PLAY_PAUSE,    KC_MEDIA_PREV_TRACK,    KC_MEDIA_NEXT_TRACK,    KC_SLASH,                 KC_PLUS,            KC_7,               KC_8,               KC_9,                 KC_BSPC,
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
-    KC_TAB,                 KC_LALT,                KC_LSFT,                KC_LCTL,                KC_ASTR,                  KC_PLUS,            TD(HEX_NUMPAD_4_D), TD(HEX_NUMPAD_5_E), TD(HEX_NUMPAD_6_F),   KC_ENTER,
+    KC_TAB,                 KC_LALT,                KC_LSFT,                KC_LCTL,                KC_ASTR,                  KC_MINS,            TD(HEX_NUMPAD_4_D), TD(HEX_NUMPAD_5_E), TD(HEX_NUMPAD_6_F),   KC_ENTER,
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
-    KC_BRIGHTNESS_DOWN,     KC_BRIGHTNESS_UP,       KC_AUDIO_VOL_DOWN,      KC_AUDIO_VOL_UP,        KC_KP_DOT,                TD(HEX_NUMPAD_0_X), TD(HEX_NUMPAD_1_A), TD(HEX_NUMPAD_2_B), TD(HEX_NUMPAD_3_C),   TO(_FUNCTION),
+    KC_BRIGHTNESS_DOWN,     KC_BRIGHTNESS_UP,       KC_AUDIO_VOL_DOWN,      KC_AUDIO_VOL_UP,        TD(DEC_DOT_COMMA),        TD(HEX_NUMPAD_0_X), TD(HEX_NUMPAD_1_A), TD(HEX_NUMPAD_2_B), TD(HEX_NUMPAD_3_C),   TO(_FUNCTION),
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
                                                                             TO(_NUMBERS),           KC_LGUI,                  OSM(MOD_LSFT),      TO(_ALPHA)
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
