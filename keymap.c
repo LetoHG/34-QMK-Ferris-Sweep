@@ -19,17 +19,17 @@ static tap dance_state = {.is_press_action = true, .step = 0};
 
 #define DEFINE_TAP_DANCE_SIMPLE(Name, TapCode, HoldCode) DEFINE_TAP_DANCE(Name, TapCode, HoldCode, TapCode, TapCode)
 #define DEFINE_TAP_DANCE(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode)      \
-    void    on_##Name(qk_tap_dance_state_t *state, void *user_data);                       \
-    uint8_t Name##_dance_step(qk_tap_dance_state_t *state);                                \
-    void    Name##_finished(qk_tap_dance_state_t *state, void *user_data);                 \
-    void    Name##_reset(qk_tap_dance_state_t *state, void *user_data);                    \
+    void    on_##Name(tap_dance_state_t *state, void *user_data);                          \
+    uint8_t Name##_dance_step(tap_dance_state_t *state);                                   \
+    void    Name##_finished(tap_dance_state_t *state, void *user_data);                    \
+    void    Name##_reset(tap_dance_state_t *state, void *user_data);                       \
     DEFINE_TAP_DANCE_ON(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode)       \
     DEFINE_TAP_DANCE_STEP(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode)     \
     DEFINE_TAP_DANCE_FINISHED(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode) \
     DEFINE_TAP_DANCE_RESET(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode)
 
 #define DEFINE_TAP_DANCE_ON(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode) \
-    void on_##Name(qk_tap_dance_state_t *state, void *user_data) {                       \
+    void on_##Name(tap_dance_state_t *state, void *user_data) {                          \
         if (state->count == 3) {                                                         \
             tap_code16(TapCode);                                                         \
             tap_code16(TapCode);                                                         \
@@ -41,7 +41,7 @@ static tap dance_state = {.is_press_action = true, .step = 0};
     }
 
 #define DEFINE_TAP_DANCE_STEP(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode) \
-    uint8_t Name##_dance_step(qk_tap_dance_state_t *state) {                               \
+    uint8_t Name##_dance_step(tap_dance_state_t *state) {                                  \
         if (state->count == 1) {                                                           \
             if (state->interrupted || !state->pressed)                                     \
                 return SINGLE_TAP;                                                         \
@@ -59,7 +59,7 @@ static tap dance_state = {.is_press_action = true, .step = 0};
     }
 
 #define DEFINE_TAP_DANCE_FINISHED(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode) \
-    void Name##_finished(qk_tap_dance_state_t *state, void *user_data) {                       \
+    void Name##_finished(tap_dance_state_t *state, void *user_data) {                          \
         dance_state.step = Name##_dance_step(state);                                           \
         switch (dance_state.step) {                                                            \
             case SINGLE_TAP:                                                                   \
@@ -80,7 +80,7 @@ static tap dance_state = {.is_press_action = true, .step = 0};
     }
 
 #define DEFINE_TAP_DANCE_RESET(Name, TapCode, HoldCode, DoubleTapCode, DoubleSingleTapCode) \
-    void Name##_reset(qk_tap_dance_state_t *state, void *user_data) {                       \
+    void Name##_reset(tap_dance_state_t *state, void *user_data) {                          \
         wait_ms(10);                                                                        \
         switch (dance_state.step) {                                                         \
             case SINGLE_TAP:                                                                \
@@ -102,17 +102,17 @@ static tap dance_state = {.is_press_action = true, .step = 0};
 #define ADD_ACTION_TAP_DANCE_CMD(Name) ACTION_TAP_DANCE_FN_ADVANCED(on_##Name, Name##_finished, Name##_reset)
 
 #define DEFINE_TAP_DANCE_CMD(Name, TapCode, HoldCmd, DoubleHoldCmd)                        \
-    void    on_##Name(qk_tap_dance_state_t *state, void *user_data);                       \
-    uint8_t Name##_dance_step(qk_tap_dance_state_t *state);                                \
-    void    Name##_finished(qk_tap_dance_state_t *state, void *user_data);                 \
-    void    Name##_reset(qk_tap_dance_state_t *state, void *user_data);                    \
+    void    on_##Name(tap_dance_state_t *state, void *user_data);                          \
+    uint8_t Name##_dance_step(tap_dance_state_t *state);                                   \
+    void    Name##_finished(tap_dance_state_t *state, void *user_data);                    \
+    void    Name##_reset(tap_dance_state_t *state, void *user_data);                       \
     DEFINE_TAP_DANCE_ON(Name, TapCode, HoldCmd, TapCode, TapCode)                          \
     DEFINE_TAP_DANCE_STEP(Name, TapCode, HoldCmd, TapCode, TapCode)                        \
     DEFINE_TAP_DANCE_FINISHED_CMD(Name, TapCode, HoldCmd, DoubleHoldCmd, TapCode, TapCode) \
     DEFINE_TAP_DANCE_RESET_CMD(Name, TapCode, HoldCmd, DoubleHoldCmd, TapCode, TapCode)
 
 #define DEFINE_TAP_DANCE_FINISHED_CMD(Name, TapCode, HoldCmd, DoubleHoldCmd, DoubleTapCode, DoubleSingleTapCode) \
-    void Name##_finished(qk_tap_dance_state_t *state, void *user_data) {                                         \
+    void Name##_finished(tap_dance_state_t *state, void *user_data) {                                            \
         dance_state.step = Name##_dance_step(state);                                                             \
         switch (dance_state.step) {                                                                              \
             case SINGLE_TAP:                                                                                     \
@@ -136,7 +136,7 @@ static tap dance_state = {.is_press_action = true, .step = 0};
     }
 
 #define DEFINE_TAP_DANCE_RESET_CMD(Name, TapCode, HoldCode, DoubleHoldCmd, DoubleTapCode, DoubleSingleTapCode) \
-    void Name##_reset(qk_tap_dance_state_t *state, void *user_data) {                                          \
+    void Name##_reset(tap_dance_state_t *state, void *user_data) {                                             \
         wait_ms(10);                                                                                           \
         switch (dance_state.step) {                                                                            \
             case SINGLE_TAP:                                                                                   \
@@ -180,7 +180,7 @@ enum tap_dance_codes {
     ESC_FORCE_QUIT_VIM,
 };
 
-DEFINE_TAP_DANCE_SIMPLE(COMMA_MINUS, KC_COMMA, KC_MINUS)
+DEFINE_TAP_DANCE_SIMPLE(COMMA_MINUS, KC_COMMA, KC_MINS)
 DEFINE_TAP_DANCE_SIMPLE(DOT_EXLM, KC_DOT, KC_EXLM)
 DEFINE_TAP_DANCE_SIMPLE(EXLM_QUES, KC_EXLM, KC_QUES)
 DEFINE_TAP_DANCE_SIMPLE(SLASH_UNDS, KC_SLASH, KC_UNDS)
@@ -202,28 +202,28 @@ DEFINE_TAP_DANCE_SIMPLE(HEX_NUMPAD_0_X, KC_0, KC_X)
 DEFINE_TAP_DANCE_SIMPLE(DEC_DOT_COMMA, KC_DOT, KC_COMMA)
 
 // Tap Dance for (^, :q)  to quit NVim
-#define VIM_QUIT_CMD      \
-    tap_code16(KC_ESC);   \
-    tap_code16(KC_COLON); \
+#define VIM_QUIT_CMD     \
+    tap_code16(KC_ESC);  \
+    tap_code16(KC_COLN); \
     tap_code16(KC_Q);
 
-#define VIM_WRITE_CMD     \
-    tap_code16(KC_ESC);   \
-    tap_code16(KC_COLON); \
-    tap_code16(KC_W);     \
-    tap_code16(KC_ENTER);
+#define VIM_WRITE_CMD    \
+    tap_code16(KC_ESC);  \
+    tap_code16(KC_COLN); \
+    tap_code16(KC_W);    \
+    tap_code16(KC_ENT);
 
 DEFINE_TAP_DANCE_CMD(CIRC_QUIT_VIM, KC_CIRC, VIM_QUIT_CMD, VIM_WRITE_CMD)
 
 #define VIM_FORCE_QUIT_CMD \
     tap_code16(KC_ESC);    \
-    tap_code16(KC_COLON);  \
+    tap_code16(KC_COLN);   \
     tap_code16(KC_Q);      \
     tap_code16(KC_EXLM);   \
-    tap_code16(KC_ENTER);
+    tap_code16(KC_ENT);
 DEFINE_TAP_DANCE_CMD(ESC_FORCE_QUIT_VIM, KC_ESC, VIM_FORCE_QUIT_CMD, tap_code16(KC_NO))
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [DOT_EXLM]           = ADD_ACTION_TAP_DANCE(DOT_EXLM),
     [EXLM_QUES]          = ADD_ACTION_TAP_DANCE(EXLM_QUES),
     [COMMA_MINUS]        = ADD_ACTION_TAP_DANCE(COMMA_MINUS),
@@ -278,9 +278,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //-------------------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
     TD(ESC_FORCE_QUIT_VIM), KC_UNDS,          KC_LBRC,      KC_RBRC,               TD(CIRC_QUIT_VIM),        KC_PLUS,          KC_LABK,        KC_RABK,           KC_EQUAL,       KC_BSPC,
   //-------------------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
-    KC_TAB,                 TD(SL_BKSL),      KC_LCBR,      KC_RCBR,               KC_ASTR,                  KC_MINUS,         KC_LPRN,        KC_RPRN,           KC_SCOLON,      KC_ENTER,
+    KC_TAB,                 TD(SL_BKSL),      KC_LCBR,      KC_RCBR,               KC_ASTR,                  KC_MINS,         KC_LPRN,        KC_RPRN,           KC_SCLN,      KC_ENT,
   //-------------------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
-    TD(HASH_AT),            TD(DLR_PERC),     KC_PIPE,      KC_TILD,               KC_GRV,                   TD(EXLM_QUES),    KC_AMPR,        TD(DQUOTE_QUOTE),  KC_COLON,       TO(_NAVIGATION),
+    TD(HASH_AT),            TD(DLR_PERC),     KC_PIPE,      KC_TILD,               KC_GRV,                   TD(EXLM_QUES),    KC_AMPR,        TD(DQUOTE_QUOTE),  KC_COLN,       TO(_NAVIGATION),
   //-------------------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
                                                             TO(_NUMBERS),          LALT(KC_LCTL),            OSM(MOD_LSFT),    TO(_ALPHA)
   //-------------------------------------------------------------------------------------------------      ---------------------------------------------------------------------------------
@@ -290,7 +290,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
     KC_ESCAPE,              KC_MEDIA_PLAY_PAUSE,    KC_MEDIA_PREV_TRACK,    KC_MEDIA_NEXT_TRACK,    KC_SLASH,                 KC_PLUS,            KC_7,               KC_8,               KC_9,                 KC_BSPC,
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
-    KC_TAB,                 KC_LALT,                KC_LSFT,                KC_LCTL,                KC_ASTR,                  KC_MINS,            TD(HEX_NUMPAD_4_D), TD(HEX_NUMPAD_5_E), TD(HEX_NUMPAD_6_F),   KC_ENTER,
+    KC_TAB,                 KC_LALT,                KC_LSFT,                KC_LCTL,                KC_ASTR,                  KC_MINS,            TD(HEX_NUMPAD_4_D), TD(HEX_NUMPAD_5_E), TD(HEX_NUMPAD_6_F),   KC_ENT,
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
     KC_BRIGHTNESS_DOWN,     KC_BRIGHTNESS_UP,       KC_AUDIO_VOL_DOWN,      KC_AUDIO_VOL_UP,        TD(DEC_DOT_COMMA),        TD(HEX_NUMPAD_0_X), TD(HEX_NUMPAD_1_A), TD(HEX_NUMPAD_2_B), TD(HEX_NUMPAD_3_C),   TO(_FUNCTION),
   //-----------------------------------------------------------------------------------------------------------------       ----------------------------------------------------
@@ -300,9 +300,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAVIGATION] = LAYOUT(
   //-----------------------------------------------------------------------       ----------------------------------------------------------------------------------------------
-    KC_ESC,           KC_NO,       KC_WBAK,       KC_WFWD,      KC_NO,                 KC_PGUP,     KC_HOME,                KC_END,     KC_PGDOWN,              KC_BSPC,
+    KC_ESC,           KC_NO,       KC_WBAK,       KC_WFWD,      KC_NO,                 KC_PGUP,     KC_HOME,                KC_END,     KC_PGDN,              KC_BSPC,
   //-----------------------------------------------------------------------       ----------------------------------------------------------------------------------------------
-    KC_TAB,           KC_LALT,     KC_LSFT,       KC_LCTL,      LCTL(KC_S),            KC_LEFT,     KC_DOWN,                KC_UP,      KC_RIGHT,               KC_ENTER,
+    KC_TAB,           KC_LALT,     KC_LSFT,       KC_LCTL,      LCTL(KC_S),            KC_LEFT,     KC_DOWN,                KC_UP,      KC_RIGHT,               KC_ENT,
   //-----------------------------------------------------------------------       ----------------------------------------------------------------------------------------------
     LCTL(KC_Z),       LCTL(KC_X),  LCTL(KC_C),    LCTL(KC_V),   LCTL(KC_Y),            KC_NO,       TO(_MOUSE),             KC_NO,      KC_NO,                  KC_DELETE,
   //-----------------------------------------------------------------------       ----------------------------------------------------------------------------------------------
@@ -338,7 +338,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   //---------------------------------------------------------------------------------------       ---------------------------------------------------------------------------------------------------------------
 //     KC_ESC,           KC_MS_WH_LEFT,  KC_MS_UP,       KC_MS_WH_RIGHT,     KC_NO,                    LGUI(KC_LBRACKET),      LCTL(LSFT(KC_TAB)),     RCTL(KC_TAB),           LGUI(KC_RBRACKET),      KC_TRANSPARENT,
 //   //---------------------------------------------------------------------------------------       ---------------------------------------------------------------------------------------------------------------
-//     TD(TAB_WINTAB),   KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,        MT(MOD_LGUI,KC_DEL),      TD(LEFT__CTRL_LEFT),    MT(MOD_RGUI,KC_DOWN),   MT(MOD_RALT,KC_UP),     TD(RIGHT__CTRL_RIGHT),  KC_ENTER,
+//     TD(TAB_WINTAB),   KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,        MT(MOD_LGUI,KC_DEL),      TD(LEFT__CTRL_LEFT),    MT(MOD_RGUI,KC_DOWN),   MT(MOD_RALT,KC_UP),     TD(RIGHT__CTRL_RIGHT),  KC_ENT,
 //   //---------------------------------------------------------------------------------------       ---------------------------------------------------------------------------------------------------------------
 //     KC_NO,            KC_MS_BTN2,     KC_MS_WH_UP,    KC_MS_WH_DOWN,      KC_TRANSPARENT,           KC_MS_BTN1,             KC_MS_ACCEL0,           KC_MS_ACCEL1,           KC_MS_ACCEL2,           KC_NO,
 //   //---------------------------------------------------------------------------------------       ---------------------------------------------------------------------------------------------------------------
