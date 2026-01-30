@@ -303,6 +303,21 @@ enum custom_keycodes {
   SWITCH_THUMBS,
 };
 
+const uint16_t PROGMEM thumb_shift_combo[] = { LEFT_THUMB_2, RGHT_THUMB_2, COMBO_END };
+combo_t key_combos[] = {
+  COMBO(thumb_shift_combo, KC_LSFT),
+};
+
+// void process_combo_event(uint16_t combo_index, bool pressed) {
+//   if (combo_index == 0) {
+//     if (pressed) {
+//       register_code(KC_LSFT);
+//     } else {
+//       unregister_code(KC_LSFT);
+//     }
+//   }
+// }
+
 // Tracks the current base layer
 uint8_t current_alpha_layer = _GRAPHITE;
 
@@ -410,6 +425,7 @@ bool handle_thumb_keys(uint16_t keycode, keyrecord_t *record) {
   case SWITCH_THUMBS:
     if (record->event.pressed) {
       use_inner_thumb_key = !use_inner_thumb_key;
+      layer_move(current_alpha_layer);
     }
     return false;
   default:
