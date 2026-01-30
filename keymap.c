@@ -369,14 +369,23 @@ uint8_t thumb_cluster_right_swapped = false;
 uint8_t thumb_cluster_left_swapped = false;
 uint8_t thumb_cluster_hands_swapped = false;
 
+uint16_t ctrl_press_time = 0;
 bool handle_left_thumb_1(keyrecord_t *record) {
   if (record->event.pressed) {
     if (IS_LAYER_ON(current_alpha_layer)) {
+      ctrl_press_time = record->event.time;
       register_code(KC_LCTL);
     } else if (IS_LAYER_ON(_SPECIAL)) {
       register_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTL));
     } else {
       register_code(KC_LGUI);
+    }
+  } else if (IS_LAYER_ON(current_alpha_layer)) {
+    unregister_code(KC_LCTL);
+    if ((record->event.time - ctrl_press_time) <= TAPPING_TERM) {
+      // TAP → oneshot shift
+      clear_oneshot_mods();
+      set_oneshot_mods(MOD_BIT(KC_LCTL));
     }
   } else {
     unregister_mods(MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_LGUI));
@@ -397,15 +406,18 @@ bool handle_left_thumb_2(keyrecord_t *record) {
   return false;
 }
 
+uint16_t shift_press_time=0;
 bool handle_right_thumb_1(keyrecord_t *record) {
   if (record->event.pressed) {
-    if (timer_elapsed(record->event.time) > TAPPING_TERM) {
-      register_code(KC_LSFT);
-    } else {
-      set_oneshot_mods(MOD_BIT(KC_LSFT));
-    }
+    shift_press_time = record->event.time;
+    register_code(KC_LSFT);
   } else {
     unregister_code(KC_LSFT);
+    if ((record->event.time - shift_press_time) <= TAPPING_TERM) {
+      // TAP → oneshot shift
+      clear_oneshot_mods();
+      set_oneshot_mods(MOD_BIT(KC_LSFT));
+    }
   }
   return false;
 }
