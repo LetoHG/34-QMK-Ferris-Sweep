@@ -380,6 +380,8 @@ bool handle_left_thumb_2(keyrecord_t *record) {
   if (record->event.pressed) {
     if (IS_LAYER_ON(_SPECIAL)) {
       layer_move(_NUMBERS);
+    } else if (IS_LAYER_ON(_NUMBERS)) {
+      // remain in this layer
     } else {
       layer_move(_SPECIAL);
     }
@@ -389,7 +391,13 @@ bool handle_left_thumb_2(keyrecord_t *record) {
 
 bool handle_right_thumb_1(keyrecord_t *record) {
   if (record->event.pressed) {
-    set_oneshot_mods(MOD_BIT(KC_LSFT));
+    if (timer_elapsed(record->event.time) - TAPPING_TERM) {
+      register_code(KC_LSFT);
+    } else {
+      set_oneshot_mods(MOD_BIT(KC_LSFT));
+    }
+  } else {
+    unregister_code(KC_LSFT);
   }
   return false;
 }
